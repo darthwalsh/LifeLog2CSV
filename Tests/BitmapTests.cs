@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 using System.Threading.Tasks;
-using ll2c;
+using LifeLogGUI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests

@@ -7,8 +7,8 @@
     <ProjectGuid>{9F51048D-DE60-4B92-A168-C651D9F61B3E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>llParser</RootNamespace>
-    <AssemblyName>llParser</AssemblyName>
+    <RootNamespace>LifeLogParser</RootNamespace>
+    <AssemblyName>LifeLogParser</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

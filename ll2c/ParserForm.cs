@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using llParser;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LifeLogParser;
 using System.Windows.Forms;
-using System.Diagnostics;
 
-namespace ll2c
+namespace LifeLogGUI
 {
     public partial class ParserForm : Form
     {

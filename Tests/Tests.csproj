@@ -54,13 +54,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ll2c\ll2c.csproj">
+    <ProjectReference Include="..\ll2c\LifeLogGUI.csproj">
       <Project>{2e2ff951-cb02-4c42-80ad-9e902f57a0ea}</Project>
-      <Name>ll2c</Name>
+      <Name>LifeLogGUI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\llParser\llParser.csproj">
+    <ProjectReference Include="..\llParser\LifeLogParser.csproj">
       <Project>{9f51048d-de60-4b92-a168-c651d9f61b3e}</Project>
-      <Name>llParser</Name>
+      <Name>LifeLogParser</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace ll2c
+﻿namespace LifeLogGUI
 {
     partial class ParserForm
     {

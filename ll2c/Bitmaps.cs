@@ -2,9 +2,9 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
-using llParser;
+using LifeLogParser;
 
-namespace ll2c
+namespace LifeLogGUI
 {
     //TODO ???CodeReview SE
     public class WrappingBitmap : IAsyncBitmap

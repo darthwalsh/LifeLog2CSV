@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "llParser", "llParser\llParser.csproj", "{9F51048D-DE60-4B92-A168-C651D9F61B3E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeLogParser", "llParser\LifeLogParser.csproj", "{9F51048D-DE60-4B92-A168-C651D9F61B3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ll2c", "ll2c\ll2c.csproj", "{2E2FF951-CB02-4C42-80AD-9E902F57A0EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeLogGUI", "ll2c\LifeLogGUI.csproj", "{2E2FF951-CB02-4C42-80AD-9E902F57A0EA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{DC9076DB-A21F-4A6A-A13F-809352CB53F0}"
 EndProject

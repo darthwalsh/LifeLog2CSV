@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Threading.Tasks;
 
-namespace llParser
+namespace LifeLogParser
 {
     static class Colors
     {

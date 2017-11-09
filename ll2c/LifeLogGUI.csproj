@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2E2FF951-CB02-4C42-80AD-9E902F57A0EA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ll2c</RootNamespace>
-    <AssemblyName>ll2c</AssemblyName>
+    <RootNamespace>LifeLogGUI</RootNamespace>
+    <AssemblyName>LifeLogGUI</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -79,9 +79,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\llParser\llParser.csproj">
+    <ProjectReference Include="..\llParser\LifeLogParser.csproj">
       <Project>{9f51048d-de60-4b92-a168-c651d9f61b3e}</Project>
-      <Name>llParser</Name>
+      <Name>LifeLogParser</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
