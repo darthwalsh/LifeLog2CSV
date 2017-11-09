@@ -1,6 +1,6 @@
 ﻿namespace ll2c
 {
-    partial class Form
+    partial class ParserForm
     {
         /// <summary>
         /// Required designer variable.

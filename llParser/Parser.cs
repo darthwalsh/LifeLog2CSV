@@ -7,36 +7,37 @@ using System.Threading.Tasks;
 
 namespace llParser
 {
+    static class Colors
+    {
+        public static Color DayShading => Color.FromArgb(248, 246, 249);
+        public static Color BelowDayShading => Color.FromArgb(248, 246, 249);
+    }
+
+    public interface IAsyncBitmap
+    {
+        int Width { get; }
+        int Height { get; }
+        void SetPixel(Point p, Color color);
+        Task<Color> GetPixel(Point p);
+    }
+
     public class Parser
     {
-        Bitmap image;
-        public Parser(Bitmap image) {
+        IAsyncBitmap image;
+        public Parser(IAsyncBitmap image) {
             this.image = image;
         }
 
         public async Task Run() {
             var threeQuarters = new Point(image.Width * 3 / 4, 0);
-            var shading = Color.FromArgb(248, 246, 249); //TODO use this
 
             for (var p = threeQuarters; p.Y < image.Height; ++p.Y) {
-                Invert(p);
-                if (p.Y % 10 == 0) {
-                    await Task.Delay(16);
+                if (await image.GetPixel(p) == Colors.BelowDayShading) {
+                    break;
                 }
             }
         }
-
-        void Invert(Point p) => image.SetPixel(p.X, p.Y, image.GetPixel(p.X, p.Y).Invert());
     }
 
-    static class Extensions
-    {
-        public static Color Invert(this Color c) => Color.FromArgb(c.R.Invert(), c.G.Invert(), c.B.Invert());
 
-        public static byte Invert(this byte b) {
-            unchecked {
-                return (byte)(b + 128);
-            }
-        }
-    }
 }

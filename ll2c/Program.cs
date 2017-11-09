@@ -16,7 +16,7 @@ namespace ll2c
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form());
+            Application.Run(new ParserForm());
         }
     }
 }
