@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bitmaps.cs" />
     <Compile Include="ParserForm.cs">
       <SubType>Form</SubType>
     </Compile>
