@@ -1,13 +1,17 @@
 # LifeLog2CSV
-Extract data from [Sony LifeLog](https://darthwalsh.visualstudio.com/LifeLog2CSV?line=2&lineStyle=plain&lineEnd=2&lineStartColumn=26&lineEndColumn=38) by parsing screenshots of the mobile app.
+[Sony LifeLog](https://www.sonymobile.com/us/apps-services/lifelog/) deprecated their web API, and [they don't provide a way to export sleep data](https://stackoverflow.com/questions/46079877/how-to-download-sony-lifelog-sleep-data).
+
+Extract sleep data from by parsing screenshots of the mobile app.
 
 # Getting Started
-To use the app, for now you need to run it from Visual Studio
+To use the app, for now you need to run it from Visual Studio. Eventually there will be a command line executable.
 
-# Build and Test
-Open Visual Studio, and run tests
+# Design
+- LifeLogParser scrapes the image for sleep information.
+- LifeLogGUI lets you debug the screen scraping by letting you watch where the scraping is looking. 
 
 # Contribute
 You can help by filing issues, fixing bugs, and sharing this with your friends.
 
+If you want to send a pull request, please run test cases and format before submitting.
 
