@@ -6,8 +6,8 @@ using llParser;
 
 namespace ll2c
 {
-    //TODO tests, ???CodeReview SE
-    class WrappingBitmap : IAsyncBitmap
+    //TODO ???CodeReview SE
+    public class WrappingBitmap : IAsyncBitmap
     {
         public Bitmap Bitmap { get; set; }
         public int Width => Bitmap.Width;
@@ -16,7 +16,7 @@ namespace ll2c
         public Task<Color> GetPixel(Point p) => Task.FromResult(Bitmap.GetPixel(p.X, p.Y));
     }
 
-    abstract class DelgatingAsyncBitmap : IAsyncBitmap
+    public abstract class DelgatingAsyncBitmap : IAsyncBitmap
     {
         public IAsyncBitmap IAsyncBitmap { private get; set; }
         public int Width => IAsyncBitmap.Width;
@@ -45,7 +45,8 @@ namespace ll2c
         }
     }
 
-    class InvertingTrackingBitmap : DelgatingAsyncBitmap
+    //TODO also use hashmap for quick contains, (maybe HashedQueue?)
+    public class InvertingTrackingBitmap : DelgatingAsyncBitmap
     {
         public int KeepCount { get; set; }
 
@@ -72,11 +73,16 @@ namespace ll2c
         }
     }
 
-    static class Extensions
+    public static class Extensions
     {
-        public static Color Invert(this Color c) => Color.FromArgb(c.R.Invert(), c.G.Invert(), c.B.Invert());
+        /// <summary>
+        /// Inverts colors (i.e. red to cyan) and greys (i.e. light greys to dark greys, and white to black)
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static Color Invert(this Color c) => Color.FromArgb(c.A, Invert(c.R), Invert(c.G), Invert(c.B));
 
-        public static byte Invert(this byte b) {
+        static byte Invert(byte b) {
             unchecked {
                 return (byte)(b + 128);
             }
