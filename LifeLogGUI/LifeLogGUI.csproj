@@ -79,7 +79,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\llParser\LifeLogParser.csproj">
+    <ProjectReference Include="..\LifeLogParser\LifeLogParser.csproj">
       <Project>{9f51048d-de60-4b92-a168-c651d9f61b3e}</Project>
       <Name>LifeLogParser</Name>
     </ProjectReference>
