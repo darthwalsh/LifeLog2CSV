@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
@@ -45,12 +47,11 @@ namespace LifeLogGUI
         }
     }
 
-    //TODO also use hashmap for quick contains, (maybe HashedQueue?)
     public class InvertingTrackingBitmap : DelgatingAsyncBitmap
     {
         public int KeepCount { get; set; }
 
-        Queue<Point> touched = new Queue<Point>();
+        HashSetQueue<Point> touched = new HashSetQueue<Point>();
 
         public override async Task<Color> GetPixel(Point p) {
             var baseColor = await base.GetPixel(p);
@@ -73,6 +74,26 @@ namespace LifeLogGUI
         }
     }
 
+    class HashSetQueue<T>
+    {
+        HashSet<T> hashSet = new HashSet<T>();
+        Queue<T> queue = new Queue<T>();
+
+        public int Count => queue.Count;
+        public bool Contains(T item) => hashSet.Contains(item);
+
+        public void Enqueue(T item) {
+            hashSet.Add(item);
+            queue.Enqueue(item);
+        }
+
+        public T Dequeue() {
+            T item = queue.Dequeue();
+            hashSet.Remove(item);
+            return item;
+        }
+    }
+
     public static class Extensions
     {
         /// <summary>
@@ -82,10 +103,6 @@ namespace LifeLogGUI
         /// <returns></returns>
         public static Color Invert(this Color c) => Color.FromArgb(c.A, Invert(c.R), Invert(c.G), Invert(c.B));
 
-        static byte Invert(byte b) {
-            unchecked {
-                return (byte)(b + 128);
-            }
-        }
+        static byte Invert(byte b) => unchecked((byte)(b + 128));
     }
 }
