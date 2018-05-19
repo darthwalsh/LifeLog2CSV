@@ -28,32 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.imageLabel = new System.Windows.Forms.Label();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // imageLabel
+            // pictureBox
             // 
-            this.imageLabel.Location = new System.Drawing.Point(0, 0);
-            this.imageLabel.Name = "imageLabel";
-            this.imageLabel.Size = new System.Drawing.Size(0, 13);
-            this.imageLabel.TabIndex = 0;
+            this.pictureBox.Location = new System.Drawing.Point(-1, 0);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox.TabIndex = 1;
+            this.pictureBox.TabStop = false;
             // 
-            // Form
+            // ParserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.imageLabel);
-            this.Name = "Form";
+            this.Controls.Add(this.pictureBox);
+            this.Name = "ParserForm";
             this.Text = "LifeLog2CSV";
             this.Load += new System.EventHandler(this.Form_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label imageLabel;
+        private System.Windows.Forms.PictureBox pictureBox;
     }
 }
 
