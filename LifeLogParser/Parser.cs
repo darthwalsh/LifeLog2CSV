@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Threading.Tasks;
 
 namespace LifeLogParser
@@ -27,24 +28,23 @@ namespace LifeLogParser
         public async Task Run() {
             var threeQuarters = new Point(image.Width * 3 / 4, 0);
 
-            var sunTop = await FindColor(threeQuarters, Colors.DayShading, dy: 1);
-            var sunTopLeft = await FindColor(sunTop, Colors.Background, dx: -1);
-            ++sunTopLeft.X;
-            var sunTopRight = await FindColor(sunTop, Colors.Background, dx: 1);
-            var sunBottomLeft = await FindColor(sunTopLeft, Colors.Background, dy: 1);
+            var sunTop = await FindColor(threeQuarters, Colors.DayShading, Down);
+            var sunTopLeft = (await FindColor(sunTop, Colors.Background, Left)).Right();
+            var sunTopRight = await FindColor(sunTop, Colors.Background, Right);
+            var sunBottomLeft = await FindColor(sunTopLeft, Colors.Background, Down);
 
             var dayHeight = sunBottomLeft.Y - sunTop.Y;
             var dayWidth = sunTopRight.X - sunTopRight.X;
         }
 
-        async Task<Point> FindColor(Point p, Color color, int dx = 0, int dy = 0) {
-            for (; 0 <= p.Y && p.Y < image.Height && 0 <= p.X && p.X < image.Height; p.X += dx, p.Y += dy) {
+        async Task<Point> FindColor(Point p, Color color, Func<Point, Point> nextPoint) {
+            for (; 0 <= p.Y && p.Y < image.Height && 0 <= p.X && p.X < image.Height; p = nextPoint(p)) {
                 if (await image.GetPixel(p) == color) {
                     await Pulse(p);
                     return p;
                 }
             }
-            throw new System.InvalidOperationException($"Couldn't find {color}!");
+            throw new InvalidOperationException($"Couldn't find {color}!");
         }
 
         async Task Pulse(Point center) {
@@ -56,5 +56,19 @@ namespace LifeLogParser
             for (var p = new Point(bounding.Left, bounding.Bottom - 1); bounding.Contains(p); ++p.X) { await image.GetPixel(p); }
             for (var p = new Point(bounding.Right - 1, bounding.Top); bounding.Contains(p); ++p.Y) { await image.GetPixel(p); }
         }
+
+        // Duplicating this because https://stackoverflow.com/q/38984853/771768 *Sigh
+        static Point Up(Point p) => p.Up();
+        static Point Down(Point p) => p.Down();
+        static Point Left(Point p) => p.Left();
+        static Point Right(Point p) => p.Right();
+    }
+
+    public static class Extensions
+    {
+        public static Point Up(this Point p) => new Point(p.X, p.Y - 1);
+        public static Point Down(this Point p) => new Point(p.X, p.Y + 1);
+        public static Point Left(this Point p) => new Point(p.X - 1, p.Y);
+        public static Point Right(this Point p) => new Point(p.X + 1, p.Y);
     }
 }
