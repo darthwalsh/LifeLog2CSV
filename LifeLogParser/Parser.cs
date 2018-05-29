@@ -14,6 +14,7 @@ namespace LifeLogParser
     {
         int Width { get; }
         int Height { get; }
+        bool Synchronous { get; set; }
         void SetPixel(Point p, Color color);
         Task<Color> GetPixel(Point p);
     }
@@ -26,6 +27,8 @@ namespace LifeLogParser
         }
 
         public async Task Run() {
+            image.Synchronous = true;
+
             var threeQuarters = new Point(image.Width * 3 / 4, 0);
 
             var sunTop = await FindColor(threeQuarters, Colors.DayShading, Down);
@@ -35,16 +38,31 @@ namespace LifeLogParser
 
             var dayHeight = sunBottomLeft.Y - sunTop.Y;
             var dayWidth = sunTopRight.X - sunTopRight.X;
+
+            //image.Synchronous = false;
+
+            //TODO search for text for amount of time slept i.e "7:22" 
+            var textFarRight = new Point(image.Width, (sunTop.Y + sunBottomLeft.Y) / 2).Left(); TODO need to go left for background, then find not background!
+            var textRight = (await FindAnotherColor(textFarRight, Colors.Background, Left)).Right();
+
+            var textFarLeft = new Point(sunTopRight.X, textRight.Y).Right();
+            var textLeft = await FindAnotherColor(textFarLeft, Colors.Background, Right);
         }
 
-        async Task<Point> FindColor(Point p, Color color, Func<Point, Point> nextPoint) {
-            for (; 0 <= p.Y && p.Y < image.Height && 0 <= p.X && p.X < image.Height; p = nextPoint(p)) {
-                if (await image.GetPixel(p) == color) {
+        Task<Point> FindColor(Point p, Color color, Func<Point, Point> nextPoint) =>
+            FindPixel(p, async pp => await image.GetPixel(pp) == color, nextPoint);
+
+        Task<Point> FindAnotherColor(Point p, Color color, Func<Point, Point> nextPoint) =>
+            FindPixel(p, async pp => await image.GetPixel(pp) != color, nextPoint);
+
+        async Task<Point> FindPixel(Point p, Func<Point, Task<bool>> finished, Func<Point, Point> nextPoint) {
+            for (p = nextPoint(p); 0 <= p.Y && p.Y < image.Height && 0 <= p.X && p.X < image.Height; p = nextPoint(p)) {
+                if (await finished(p)) {
                     await Pulse(p);
                     return p;
                 }
             }
-            throw new InvalidOperationException($"Couldn't find {color}!");
+            throw new InvalidOperationException($"Couldn't find Color!");
         }
 
         async Task Pulse(Point center) {
@@ -56,6 +74,8 @@ namespace LifeLogParser
             for (var p = new Point(bounding.Left, bounding.Bottom - 1); bounding.Contains(p); ++p.X) { await image.GetPixel(p); }
             for (var p = new Point(bounding.Right - 1, bounding.Top); bounding.Contains(p); ++p.Y) { await image.GetPixel(p); }
         }
+
+        //static Point Between(Point a, Point b) => new Point((a.X + b.X) / 2, (a.Y + b.Y) / 2);
 
         // Duplicating this because https://stackoverflow.com/q/38984853/771768 *Sigh
         static Point Up(Point p) => p.Up();

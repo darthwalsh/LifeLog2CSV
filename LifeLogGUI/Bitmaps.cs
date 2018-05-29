@@ -8,12 +8,13 @@ using LifeLogParser;
 
 namespace LifeLogGUI
 {
-    //TODO ???CodeReview SE
+    //TODO??? CodeReview SE
     public class WrappingBitmap : IAsyncBitmap
     {
         public Bitmap Bitmap { get; set; }
         public int Width => Bitmap.Width;
         public int Height => Bitmap.Height;
+        public bool Synchronous { get; set; }
         public void SetPixel(Point p, Color color) => Bitmap.SetPixel(p.X, p.Y, color);
         public Task<Color> GetPixel(Point p) => Task.FromResult(Bitmap.GetPixel(p.X, p.Y));
     }
@@ -23,6 +24,7 @@ namespace LifeLogGUI
         public IAsyncBitmap IAsyncBitmap { private get; set; }
         public int Width => IAsyncBitmap.Width;
         public int Height => IAsyncBitmap.Height;
+        public bool Synchronous { get => IAsyncBitmap.Synchronous; set => IAsyncBitmap.Synchronous = value; }
         public void SetPixel(Point p, Color color) => IAsyncBitmap.SetPixel(p, color);
         public virtual Task<Color> GetPixel(Point p) => IAsyncBitmap.GetPixel(p);
     }
@@ -39,7 +41,9 @@ namespace LifeLogGUI
         public async override Task<Color> GetPixel(Point p) {
             ++count;
             if (stopwatch.ElapsedMilliseconds >= DelayInterval || count > DelayCount) {
-                await Task.Delay(DelayInterval);
+                if (!Synchronous) {
+                    await Task.Delay(DelayInterval); 
+                }
                 stopwatch.Restart();
                 count = 0;
             }
