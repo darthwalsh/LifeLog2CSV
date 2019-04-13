@@ -47,6 +47,7 @@ namespace LifeLogGUI
                     },
                 });
                 await parser.Run(); 
+                pictureBox.Refresh();
             }
         }
     }
