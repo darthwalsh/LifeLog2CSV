@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using LifeLogParser;
 using System.Windows.Forms;
 using System.IO;
+using LifeLogParser;
 
 namespace LifeLogGUI
 {
